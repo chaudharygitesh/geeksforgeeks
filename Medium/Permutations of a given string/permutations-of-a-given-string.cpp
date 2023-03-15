@@ -6,41 +6,32 @@ using namespace std;
 class Solution
 {
 	public:
-	set<string>st;
-	void h(string &ds,string &nums, vector<string> &ans, int freq[]){
-         
-	    if(nums.length()==ds.length()){
-	        if(st.find(ds)==st.end()){
-	              ans.push_back(ds);
-	              st.insert(ds);
+	set<string> st;
+	void h(int ind, string s, vector<string> &ans ){
+	    if(ind==s.size()){
+	        if(st.find(s)==st.end()){
+	            st.insert(s);
+	            ans.push_back(s);
 	        }
-	     
-	       
-
+	        
 	        return;
 	    }
-	    for(int i = 0 ; i<nums.size();i++){
-	        if(!freq[i]){
-	         ds.push_back(nums[i]);
-	            freq[i]=1;
-	            h(ds,nums,ans,freq);
-	            freq[i]=0;
-	            ds.pop_back();
-	        }
+	    for(int i = ind;i<s.size();i++){
+	        swap(s[i],s[ind]);
+	        h(ind+1,s,ans);
+	        swap(s[i],s[ind]);
+	        
 	    }
 	}
 		vector<string>find_permutation(string S)
 		{
-		    int freq[S.length()];
-		    for(int i=0;i<S.length();i++)freq[i]=0;
-		    vector<string> ans;
-		    string st="";
-		    h(st,S,ans,freq);
-		    sort(ans.begin(),ans.end());
+		    // Code here there
 		    
-		    return ans;
-		    
-		    
+		     vector<string> ans;
+		     string st="";
+		     h(0,S,ans);
+		     sort(ans.begin(),ans.end());
+		     return ans;
 		}
 };
 
